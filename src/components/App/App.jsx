@@ -27,10 +27,11 @@ export default function App() {
   );
 
   return (
-    <div className={css.container}>
+    <>
+      <h1 className={css.title}>MobBox</h1>
       <Form onAdd={addTask} />
       <SearchBox value={filter} onFilter={setFilter} />
       <TaskList tasks={visibleTasks} onDelete={deleteTask} />
-    </div>
+    </>
   );
 }

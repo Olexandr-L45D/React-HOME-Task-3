@@ -1,19 +1,82 @@
 import css from './ContactForm.module.css';
+import { useId } from "react";
 
 export default function Form({ onAdd }) {
+    const nameFieldId = useId();
+    const numberFieldId = useId();
     const handleSubmit = (e) => {
         e.preventDefault();
         onAdd({
-            id: Date.now(),
-            text: e.target.elements.text.value,
+            name: e.target.elements.name.value,
+            number: e.target.elements.number.value
         });
         e.target.reset();
     };
 
     return (
-        <form className={css.form} onSubmit={handleSubmit}>
-            <input className={css.field} type="text" name="text" />
-            <button type="submit">Add task</button>
-        </form>
+        <div className={css.item}>
+            <form className={css.form} onSubmit={handleSubmit}>
+                <label htmlFor={nameFieldId} className={css.paragraf}>Name</label>
+                <input className={css.field} type="text" name="name" id={nameFieldId} />
+                <label htmlFor={numberFieldId} className={css.paragraf}>Number</label>
+                <input className={css.field} type="text" name="number" id={numberFieldId} />
+                <div className={css.btn}>
+                    <button className={css.addContact} type="submit">Add contact</button>
+                </div>
+            </form>
+        </div>
     );
 }
+
+
+// import { nanoid } from 'nanoid'
+// import { useState } from "react";
+// import css from "./ContactForm.module.css"
+// import { Formik, Form, Field } from 'formik';
+// import { useId } from "react";
+// import * as Yup from "yup";
+// import { ErrorMessage } from "formik";
+
+// const FeedbackSchema = Yup.object().shape({
+//     name: Yup.string().min(3, "Too Short!").max(50, "Too Long!").required("Required"),
+//     number: Yup.string().min(3, "Too Short!").max(50, "Too Long!").required("Required")
+// });
+
+// export default function ContactForm({ onAdd }) {
+//     const nameFieldId = useId();
+//     const numberFieldId = useId();
+
+//     const handleSubmit = (values, actions) => {
+
+//         // add onAdd and e on handleSubmit
+//         // onAdd({
+//         //     id: nanoid(),
+//         //     name: e.target.elements.name.value,
+//         //     number: e.target.elements.number.value
+//         // });
+
+//         console.log(values);
+//         actions.resetForm();
+//     };
+
+//     return (
+//         <div className={css.item}>
+//             <Formik initialValues={{
+//                 name: " ",
+//                 number: " "
+//             }} onSubmit={handleSubmit} onAdd={onAdd} validationSchema={FeedbackSchema}>
+//                 <Form>
+//                     <label htmlFor={nameFieldId} className={css.paragraf}>Name</label>
+//                     <Field type="text" name="name" id={nameFieldId} />
+//                     <ErrorMessage name="name" component="span" />
+//                     <label htmlFor={numberFieldId} className={css.paragraf}>Number</label>
+//                     <Field type="text" name="number" id={numberFieldId} />
+//                     <ErrorMessage name="number" component="span" />
+//                     <div className={css.btn}>
+//                         <button className={css.addContact} type="submit">Add contact</button>
+//                     </div>
+//                 </Form>
+//             </Formik>
+//         </div>
+//     );
+// };
